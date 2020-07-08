@@ -1,9 +1,12 @@
 import React from "react";
-import Inicio from "./inicio";
-const App = ()=>(
-    <div>
-      <Inicio />
-    </div>
-)
+
+import AppRoute from "../routes";
+
+const App = ()=>{
+ 
+    return(
+      <AppRoute  />
+    )
+}
 
 export default App;

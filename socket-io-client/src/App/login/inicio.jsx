@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Registro from "./registro/Registro";
-import Usuarios from "./usuarios";
-import Login from "../login/login";
+import Login from "../components/login";
+
 
 
 const usuarios = [
@@ -16,9 +15,7 @@ const Inicio = () => {
    
     return(
     <div>
-      <Registro onNewUser={newUser => setUsers([ newUser, ...user])} />
-       
-      <Usuarios users={user} /><br></br>
+     
       <Login  />
         </div>
     

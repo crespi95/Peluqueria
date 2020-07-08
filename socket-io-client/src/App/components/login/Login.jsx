@@ -61,10 +61,11 @@ const Login = ({onLogin})=>{
         socket.on("login", user=>{
             document.cookie = "usuario="+user;
             document.cookie = "login=true";  
-           
+            alert(document.cookie);
         })
         setNewPass("");
         setNewName("");
+       
     }
     } >Enviar</button>
     <br></br>

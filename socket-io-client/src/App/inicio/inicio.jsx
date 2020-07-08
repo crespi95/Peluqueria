@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Registro from "./registro/Registro";
-import Usuarios from "./usuarios";
-import Login from "../login/login";
+import Registro from "../components/registro";
+import Usuarios from "../components/usuarios";
+import Login from "../components/login";
+import Pulsador from "../components/pulsador";
 
 
 const usuarios = [
@@ -20,6 +21,8 @@ const Inicio = () => {
        
       <Usuarios users={user} /><br></br>
       <Login  />
+        
+      <Pulsador />
         </div>
     
     )}

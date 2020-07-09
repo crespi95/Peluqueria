@@ -56,9 +56,13 @@ const Login = ({onLogin})=>{
        
         socket.emit("login", user);
         socket.on("login", user=>{
+            if(user){
             document.cookie = "usuario="+user;
             document.cookie = "login=true";  
             alert(document.cookie);
+            }else{
+                alert("Usuario no válido");
+            }
         })
         setNewPass("");
         setNewName("");

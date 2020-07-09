@@ -17,8 +17,11 @@ const Inicio = () => {
    
     return(
     <div>
+        <h2>Registro</h2>
       <Registro onNewUser={newUser => setUsers([ newUser, ...user])} />
        <br></br>
+       <br></br>
+       <h2>Login</h2>
       <Login  />
         
       <Pulsador />

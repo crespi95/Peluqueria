@@ -20,9 +20,13 @@ const Login = ({onLogin})=>{
         var user = [newName,newPass];
         socket.emit("login", user);
         socket.on("login", user=>{
-            document.cookie = "usuario="+user;
-            document.cookie = "login=true";  
-           
+            if(user){
+                document.cookie = "usuario="+user;
+                document.cookie = "login=true";  
+                alert("Usuario conectado");
+                }else{
+                    alert("Usuario no válido");
+                }
         })
         setNewPass("");
         setNewName("");
@@ -38,9 +42,13 @@ const Login = ({onLogin})=>{
         var user = [newName,newPass];
         socket.emit("login", user);
         socket.on("login", user=>{
-            document.cookie = "usuario="+user;
-            document.cookie = "login=true";  
-           
+            if(user){
+                document.cookie = "usuario="+user;
+                document.cookie = "login=true";  
+                alert("Usuario conectado");
+                }else{
+                    alert("Usuario no válido");
+                }
         })
         setNewPass("");
         setNewName("");
@@ -59,7 +67,7 @@ const Login = ({onLogin})=>{
             if(user){
             document.cookie = "usuario="+user;
             document.cookie = "login=true";  
-            alert(document.cookie);
+            alert("Usuario conectado");
             }else{
                 alert("Usuario no válido");
             }

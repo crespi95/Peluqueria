@@ -18,8 +18,7 @@ const Inicio = () => {
     return(
     <div>
       <Registro onNewUser={newUser => setUsers([ newUser, ...user])} />
-       
-      <Usuarios users={user} /><br></br>
+       <br></br>
       <Login  />
         
       <Pulsador />

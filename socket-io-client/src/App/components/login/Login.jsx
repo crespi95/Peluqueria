@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://51.210.108.3:4002";
-
+//const ENDPOINT = "http://51.210.108.3:4002";
+const ENDPOINT = "http://localhost:4002/";
 const socket = socketIOClient(ENDPOINT); 
 
 const Login = ({onLogin})=>{

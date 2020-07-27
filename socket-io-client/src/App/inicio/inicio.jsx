@@ -3,6 +3,7 @@ import Registro from "../components/registro";
 import Usuarios from "../components/usuarios";
 import Login from "../components/login";
 import Pulsador from "../components/pulsador";
+import Cita from "../components/cita";
 
 
 const usuarios = [
@@ -23,7 +24,10 @@ const Inicio = () => {
        <br></br>
        <h2>Login</h2>
       <Login  />
-        
+      <br></br>
+       <br></br>
+       <h2>Cita</h2>
+        <Cita></Cita>
       <Pulsador />
         </div>
     

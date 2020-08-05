@@ -40,7 +40,37 @@ io.on("connection", (socket) => {
       let codU;
       let sql = "SELECT * FROM usuarios";
 
-      connection.query(sql,(err,result) =>{
+      connection.query(sql).then((result)=>{
+        for (let i of result) {
+          
+        
+          if(i.user == name){
+            contador++;
+            console.log(contador);
+          }
+        }
+        if(contador==0){
+        let sql = "INSERT INTO usuarios (cod_usuario, user, pass, cod_rol, borrado) VALUES (NULL, '"+user[0]+"', MD5('"+user[1]+"'),0,0)";
+        connection.query(sql);
+        let c1 = "SELECT * from usuarios WHERE user = '"+ user[0]+"';";
+       connection.query(c1).then((result)=>{
+      for (let i of result) {
+            console.log(i.cod_usuario);
+            if(i.user == user[0]){
+              codU = i.cod_usuario;
+              sql ="INSERT INTO `datos` (`cod_dato`, `cod_usuario`, `nombre`) VALUES (NULL, '"+codU+"', '"+user[2]+"');"
+              connection.query(sql);
+            }
+          }
+     }).catch((err)=>{
+       console.log(err)
+     });
+       } else{socket.emit("validacion","Usuario en uso");
+      }
+       }).catch((err)=>{
+         console.log(err)
+       });
+     /* connection.query(sql,(err,result) =>{
         for (let i of result) {
           
         
@@ -71,14 +101,14 @@ io.on("connection", (socket) => {
      
     }
         
-      });
+      });*/
      
   });
 
   socket.on("login",(user)=>{
      let sql = "SELECT * from usuarios;";
      
-     connection.query(sql,(err,result)=>{
+    /* connection.query(sql,(err,result)=>{
       for (let i of result) {  
         console.log(md5(user[1]));
          if(i.user==user[0] && i.pass == md5(user[1])){    
@@ -86,10 +116,10 @@ io.on("connection", (socket) => {
            socket.emit("login",user[0]);
          }
         }
-     })
+     })*/
 
 
-   /* connection.query(sql).then((result)=>{
+    connection.query(sql).then((result)=>{
       for (let i of result) {  
        console.log(md5(user[1]));
         if(i.user==user[0] && i.pass == md5(user[1])){
@@ -99,7 +129,7 @@ io.on("connection", (socket) => {
      }
      }).catch((err)=>{
        console.log(err)
-     });*/
+     });
       
      
        
@@ -112,7 +142,51 @@ io.on("connection", (socket) => {
  
     const citas =[];  
   let sql ="SELECT * FROM citas"
-    connection.query(sql,(err, result)=>{
+  connection.query(sql).then((result)=>{
+    for (let i of result) {
+      
+      var mnths = {
+        Jan: "01",
+        Feb: "02",
+        Mar: "03",
+        Apr: "04",
+        May: "05",
+        Jun: "06",
+        Jul: "07",
+        Aug: "08",
+        Sep: "09",
+        Oct: "10",
+        Nov: "11",
+        Dec: "12"
+      };
+
+      let aux = i.fecha_hora+"";
+      let str = aux.split(" ");
+      let mes = mnths[str[1]];
+      let ano = str[3];
+      let dia = str[2];
+      let fecha = ano+"-"+mes+"-"+dia;
+      
+      if(fecha == data){
+        citas.push(str[4])
+      }
+     }
+     for (let i in citas) {
+      for (let o in horario) {
+        
+      
+      if(citas[i]==horario[o]){
+        horario.splice(o,1);
+      }
+      }
+    }
+    console.log(horario);
+
+      socket.emit("horario",horario)
+   }).catch((err)=>{
+     console.log(err)
+   });
+    /*connection.query(sql,(err, result)=>{
       
     
 
@@ -157,13 +231,42 @@ io.on("connection", (socket) => {
 
       socket.emit("horario",horario)
     }) 
-  })
+  })*/
   socket.on("createCita",(data)=>{
     let date = data[0];
     let user = data[1];
     let contador =0;
     let sql = "SELECT * FROM citas WHERE fecha_hora='"+date+"';";
-    connection.query(sql,(err,result)=>{
+    connection.query(sql).then((result)=>{
+     for(let i of result){
+        if(i.fecha_hora==date){
+          contador++;
+        }
+
+      }
+      if(contador!=0){
+        socket.emit("validacion","Fecha no disponible");
+      }else{
+        sql= "SELECT * FROM usuarios where user='"+user+"'";
+       
+          connection.query(sql).then((result)=>{
+            user=result[0].cod_usuario;
+          sql="INSERT INTO `citas` (`cod_cita`, `fecha_hora`, `cod_usuario`) VALUES (NULL, '"+date+"', '"+user+"');"
+        connection.query(sql);
+
+             connection.query(sql);
+           }).catch((err)=>{
+             console.log(err)
+           });
+      
+        
+        
+      }
+     }
+     ).catch((err)=>{
+       console.log(err)
+     });
+   /* connection.query(sql,(err,result)=>{
       for(let i of result){
         if(i.fecha_hora==date){
           contador++;
@@ -181,7 +284,7 @@ io.on("connection", (socket) => {
         })
         
       }
-    })
+    })*/
   })
 
 });

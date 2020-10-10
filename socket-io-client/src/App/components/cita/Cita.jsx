@@ -16,36 +16,58 @@ const Cita = ({onNewCita})=>{
   
     return(
         <>
-        <label>Fecha: </label>
+          <br></br>
+          <h2>Cita</h2>
+          <br></br>
+        <label><h4>Fecha: </h4></label><br></br>
+       
         <input type="date" value={newDate}  onChange={e=>{
             setNewDate(e.target.value);
             socket.emit("fecha",e.target.value);
             socket.on("horario",datos=>{
+                if(datos){
                 setNewTime(datos);
                 for (let i of datos) {
                     date.push({value:i, label:i});
                    
                 }
+            
                setNewTime(date);
+            
+                }else{
+                    
+                    setNewTime([]);
+                }
             })
             }
             }></input>
         <br></br>
-        <label>Hora: </label>
+        <label><h4>Hora: </h4></label>
         <Select options={newTime} id="select"/> 
-        <button onClick={()=>{
+        <br></br>
+        <div className="row">
+            <div className="col-4"></div>
+        <button className="col-3" onClick={()=>{
+              if(document.cookie){
+     
+      
+                let cookie = document.cookie.split(",");
+                let usu = cookie[0].split(";")[0].split("=")[1];
+                console.log(usu)
+                
+               
             onNewCita({
                 hora: document.getElementById("select").textContent,
                 fecha: newDate
 
             });
-            let date =[newDate+" "+document.getElementById("select").textContent,"Pedro"];
+            let date =[newDate+" "+document.getElementById("select").textContent,usu];
             socket.emit("createCita",date);
-           
+            window.location.replace('');
             
             
-        }}>Enviar</button>
-        <br></br>
+        }}}>Enviar</button>
+        </div>
         </>
     )
 

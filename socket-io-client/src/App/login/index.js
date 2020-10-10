@@ -1,3 +1,3 @@
-import Inicio from "./inicio";
+import Inicio from "./login";
 
 export default Inicio;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://51.210.108.3/:4002";
+const ENDPOINT = 'http://51.210.108.3/:4002';
 
 function App() {
   const [response, setResponse] = useState("");

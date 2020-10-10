@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "http://51.210.108.3:4002";
@@ -11,9 +11,12 @@ const Registro = ({onNewUser})=>{
     const [newPass, setNewPass] = useState("");
     const [newNick, setNewNick] = useState("");
   return(
- <>
-    <label>Nick:</label>
-    <input type="text" value={newName} onChange={e=>setNewName(e.target.value) } onKeyUp={e=>{
+ <><div class="form-group panel panel-default">
+ <br></br>
+     <h2>Registro</h2>
+     
+    <label class="col-lg-2 control-label" style={{fontSize:"20px"}}>Nick:</label>
+    <input type="text"  value={newName} class="form-control col-5" onChange={e=>setNewName(e.target.value) } onKeyUp={e=>{
         if(e.key == "Enter" && newName!="" && newPass!="" && newNick!="") {
         onNewUser({
             name: newName,
@@ -29,8 +32,8 @@ const Registro = ({onNewUser})=>{
         setNewNick("");
         }
     }}></input><br></br>
-    <label>Pass:</label>
-    <input type="password" value={newPass} onChange={e=>setNewPass(e.target.value)} onKeyUp={e=>{
+    <label  class="col-lg-2 control-label" style={{fontSize:"20px"}}>Pass:</label>
+    <input type="password" value={newPass} class="form-control col-5"  onChange={e=>setNewPass(e.target.value)} onKeyUp={e=>{
         if(e.key == "Enter" && newName!="" && newPass!="" && newNick!="" ) {
         onNewUser({
             name: newName,
@@ -44,10 +47,11 @@ const Registro = ({onNewUser})=>{
         setNewPass("");
         setNewName("");
         setNewNick("");
+        window.location.replace('');
         }
-    }}></input><br></br>
-     <label>Nombre:</label>
-    <input type="text" value={newNick} onChange={e=>setNewNick(e.target.value) } onKeyUp={e=>{
+    }}></input>
+     <label class="col-lg-2 control-label" style={{fontSize:"20px"}}>Nombre:</label>
+    <input type="text" value={newNick}  class="form-control col-5" onChange={e=>setNewNick(e.target.value) } onKeyUp={e=>{
         if(e.key == "Enter" && newName!="" && newPass!="" && newNick!="") {
         onNewUser({
             name: newName,
@@ -61,9 +65,10 @@ const Registro = ({onNewUser})=>{
         setNewPass("");
         setNewName("");
         setNewNick("");
+        window.location.replace('');
         }
     }}></input><br></br>
-    <button onClick={()=>{
+    <button style={{marginLeft:"12%"}} onClick={()=>{
         if(newName!="" && newPass!="" && newNick!="" ){
         onNewUser({
             name: newName,
@@ -81,11 +86,12 @@ const Registro = ({onNewUser})=>{
         setNewPass("");
         setNewName("");
         setNewNick("");
+        window.location.replace('');
     }
 }
-    } >Enviar</button>
-    <br></br>
- 
+    } >Registrarse</button>
+    <br></br><br></br>
+    </div>
     </>
   )}
 

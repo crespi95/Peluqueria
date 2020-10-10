@@ -12,8 +12,8 @@ var nodemailer = require('nodemailer'); // email sender function
 const transporter = nodemailer.createTransport({
   service: 'Hotmail',
   auth: {
-      user: 'peluqueriaprueba3@hotmail.com',
-      pass: '1597532684RCR'
+      user: 'xxxxxx@hotmail.com',
+      pass: 'xxxxxx'
   }
 });
 /*
